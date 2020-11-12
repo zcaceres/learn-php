@@ -133,13 +133,62 @@ try {
 
 ### Array Functions
 ```php
-array_map(function ($myarg) {
-    return 'something';
-}, $myArray);
+
+class Post {
+    public string $title;
+    public boolean $is_published;
+
+    public function __construct($title, $is_published) {
+        $this->title = $title;
+        $this->is_published = $is_published;
+    }
+}
+
+$posts = [
+    new Post('My First', true),
+    new Post('My Second', true),
+    new Post('My Third', true),
+    new Post('My Fourth', false),
+]
+
+$unpublishedPosts = array_filter($posts, function ($post) {
+    return !$post->is_published;
+});
+
+array_map(function ($post) {
+    return $post->title;
+}, $posts);
+
+// same as the map above
+array_column($posts, 'title');
 
 ```
 
 
+
+
+
+
+### String Functions
+```php
+trim(" hello world "); // "hello world"
+trim("/hello/world/", "/"); // "hello world"
+// trim a specific character with this second argument!
+
+```
+
+
+
+### Composer
+
+autoload (in `composer.json`) let's you specify all the classes that we want to load by default. 
+
+
+### Namespaces
+
+Helps you organize your classes. ex: `namespace App\Controllers`
+
+Import classes with `use App\Controllers` (where App\Controllers is the namespace).
 
 ---
 
@@ -176,6 +225,12 @@ In HTML...
 {{ $name }}
 ```
 
+Partials
+```php
+// Injects a reusable chunk (partial) of HTML in the page
+<?php require('partials/nav.php')>
+```
+
 ### Tips From the Team
 
 ```php
@@ -183,3 +238,4 @@ dd() // die and dump useful for debugging
 ```
 
 "route model binding": (Laravel adds route params into the argument of the controller and queries "findById" if you include the data type with the parameter)
+
